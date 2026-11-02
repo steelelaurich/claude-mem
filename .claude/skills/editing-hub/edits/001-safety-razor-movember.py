@@ -33,7 +33,7 @@ LINES = [
     ("c", 430.18, 432.12, "Fucking perfect, mate. Perfect.", {"zoom": 1.25, "face": [460, 1080]}),
     ("c", 525.24, 528.30, "Now, a bit of aftershave. Just gonna fucking sting.", {}),
     ("c", 540.02, 547.52, "Voila. Nice clean shave, first of November. I'm gonna update you guys on my moustache growth.", {}),
-    ("b", 1.60, 2.84, "Yeah, yeah, yeah, yeah!", {"zoom": 1.25, "face": [380, 880]}),
+    ("b", 1.60, 2.84, "Zart, zart, zart, zart!", {"zoom": 1.25, "face": [380, 880]}),
 ]
 
 

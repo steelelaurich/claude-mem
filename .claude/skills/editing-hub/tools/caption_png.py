@@ -8,13 +8,13 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 W, H = 1080, 1920
 Y_CENTRE = 1055
-SIZE = 52
+SIZE = 52  # defaults from rule 1; render() takes overrides
 SHADOW_ALPHA = int(255 * 0.20)
 SHADOW_BLUR = 13  # CSS-style blur radius; Gaussian sigma = radius / 2
 
 
-def render(text, out_path, font_path):
-    font = ImageFont.truetype(font_path, SIZE)
+def render(text, out_path, font_path, size=SIZE, y=Y_CENTRE):
+    font = ImageFont.truetype(font_path, size)
     l, t, r, b = font.getbbox(text, anchor="mm")
     width = r - l
     # Rule 7: below y 960 nothing may cross x 900, so a centred line must be <= 720 px wide.
@@ -22,13 +22,13 @@ def render(text, out_path, font_path):
         raise SystemExit(f"caption too wide ({width}px): {text!r}")
 
     shadow = Image.new("L", (W, H), 0)
-    ImageDraw.Draw(shadow).text((W // 2, Y_CENTRE), text, font=font, fill=255, anchor="mm")
+    ImageDraw.Draw(shadow).text((W // 2, y), text, font=font, fill=255, anchor="mm")
     shadow = shadow.filter(ImageFilter.GaussianBlur(SHADOW_BLUR / 2))
     shadow = shadow.point(lambda v: v * SHADOW_ALPHA // 255)
 
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     img.putalpha(shadow)
-    ImageDraw.Draw(img).text((W // 2, Y_CENTRE), text, font=font, fill=(255, 255, 255, 255), anchor="mm")
+    ImageDraw.Draw(img).text((W // 2, y), text, font=font, fill=(255, 255, 255, 255), anchor="mm")
     img.save(out_path)
     return width
 

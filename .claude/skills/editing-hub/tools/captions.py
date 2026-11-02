@@ -17,7 +17,9 @@ plan_path, rdir, font = sys.argv[1:4]
 rdir = os.path.abspath(rdir)
 plan = json.load(open(plan_path))
 tl = json.load(open(os.path.join(rdir, "timeline.json")))
-fnt = ImageFont.truetype(font, 52)
+SIZE = int(os.environ.get("CAPTION_SIZE", 52))
+Y = int(os.environ.get("CAPTION_Y", 1055))
+fnt = ImageFont.truetype(font, SIZE)
 
 
 def norm(t):
@@ -97,7 +99,7 @@ for i, (s, text) in enumerate(events):
     if fe <= fs:
         continue
     png = os.path.join(rdir, "caps", f"c{i:03d}.png")
-    render(text, png, font)
+    render(text, png, font, SIZE, Y)
     lst.append({"text": text, "s": fs / FPS, "e": fe / FPS, "png": png})
 # fix frame-rounding overlaps
 for a, b in zip(lst, lst[1:]):
