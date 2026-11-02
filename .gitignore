@@ -12,7 +12,8 @@ dist/
 .install-version
 .claude/settings.local.json
 .claude/agents/
-.claude/skills/
+.claude/skills/*
+!.claude/skills/editing-hub/
 .claude/plans/
 .claude/worktrees/
 plugin/data/
